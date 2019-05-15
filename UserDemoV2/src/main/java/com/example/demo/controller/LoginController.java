@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ public class LoginController {
 
 	
 	@RequestMapping(value="/validateUser",method=RequestMethod.POST)
-	public String validateUser(Model model,@RequestParam("username")String username,@RequestParam("password")String password) {
+	public String validateUser(Model model,HttpSession httpSession,@RequestParam("username")String username,@RequestParam("password")String password) {
 		
 		UserDto userDto = loginService.getUserByUsernameAndPassword(username,password);
 		
@@ -43,11 +45,20 @@ public class LoginController {
 			model.addAttribute("formDto", formDto);
 			model.addAttribute("userDtoList", userDtos);
 			
-			
+			httpSession.setAttribute("loginUser", userDto);
 			return "dashboard"; // 
 		}
 		
 		
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession httpSession) {
+		System.out.println("logout controller");
+		
+		httpSession.invalidate();
+		
+		return "redirect:login?msg= Logout Successful"; 
 	}
 	
 	

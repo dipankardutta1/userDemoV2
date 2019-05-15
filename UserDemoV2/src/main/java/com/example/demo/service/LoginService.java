@@ -57,7 +57,32 @@ public class LoginService {
 		User user = new User();
 		BeanUtils.copyProperties(userDto, user);
 		
+		
+		/*if(user.getId() == null) {
+			userRepository.save(user);
+		}else {
+			userRepository.save(user);
+		}*/
+		
+		
 		userRepository.save(user);
+		
+		
+		
+	}
+
+	public void deleteUserById(Integer id) {
+		userRepository.deleteById(id);
+	}
+
+	public UserDto findUserById(Integer id) {
+		User user =  userRepository.getOne(id);
+		
+		UserDto userDto = new UserDto();
+		
+		BeanUtils.copyProperties(user, userDto);
+		
+		return userDto;
 		
 	}
 	

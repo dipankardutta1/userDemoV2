@@ -22,29 +22,30 @@ body {
 </head>
 <body>
 
-
+<h1>Welcome ${sessionScope.loginUser.name } <a href="logout">Logout</a></h1>
 
 <div class="panel panel-primary">
   <div class="panel-heading">User Entry</div>
   <div class="panel-body">
   	
   	<form:form action="processUserDetails" method="post" modelAttribute="formDto">
+  		<input type="hidden" id="id" name="id" value="${formDto.id }"/>
 	  <div class="form-group">
 	    <label for="name">Name:</label>
-	    <input type="text" name="name" class="form-control" id="name">
+	    <input type="text" name="name" class="form-control" id="name" value="${formDto.name}">
 	  </div>
 	  <div class="form-group">
 	    <label for="phoneNo">Phone No:</label>
-	    <input type="text" name="phoneNo" class="form-control" id="phoneNo">
+	    <input type="text" name="phoneNo" class="form-control" id="phoneNo" value="${formDto.phoneNo}">
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="name">Username:</label>
-	    <input type="text" name="username" class="form-control" id="username">
+	    <input type="text" name="username" class="form-control" id="username" value="${formDto.username}">
 	  </div>
 	  <div class="form-group">
 	    <label for="phoneNo">Password:</label>
-	    <input type="text" name="password" class="form-control" id="password">
+	    <input type="text" name="password" class="form-control" id="password" value="${formDto.password}">
 	  </div>
 	  
 	  <button type="submit" class="btn btn-default">Submit</button>
@@ -65,6 +66,7 @@ body {
   				<th>Phone No</th>
   				<th>DOB</th>
   				<th>Address</th>
+  				<th>Action</th>
   			</tr>
   		</thead>
   		
@@ -76,6 +78,7 @@ body {
   					<td>${row.phoneNo}</td>
   					<td>${row.dob}</td>
   					<td>${row.address}</td>
+  					<td><a href="editUser?id=${row.id}">EDIT</a> / <a href="deleteUser?id=${row.id}">DELETE</a></td>
   				</tr>
   			</c:forEach>
   		</tbody>

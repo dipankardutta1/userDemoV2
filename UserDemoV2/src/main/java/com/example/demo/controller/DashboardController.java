@@ -32,4 +32,42 @@ public class DashboardController {
 		return "dashboard";
 		
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/deleteUser",method=RequestMethod.GET)
+	public String deleteUser(Model model,@RequestParam("id") Integer id) {
+		
+		
+		// delete
+		loginService.deleteUserById(id);
+		
+		List<UserDto> userDtos = loginService.findAllUsers();
+		model.addAttribute("userDtoList", userDtos);
+		
+		return "dashboard";
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/editUser",method=RequestMethod.GET)
+	public String editUser(Model model,@RequestParam("id") Integer id) {
+		
+		
+		// delete
+		UserDto userDto = loginService.findUserById(id);
+		
+		
+		model.addAttribute("formDto", userDto);
+		
+		List<UserDto> userDtos = loginService.findAllUsers();
+		model.addAttribute("userDtoList", userDtos);
+		
+		return "dashboard";
+		
+	}
+	
+	
 }
