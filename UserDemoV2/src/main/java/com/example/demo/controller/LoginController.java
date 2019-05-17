@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.service.LoginService;
@@ -29,7 +29,7 @@ public class LoginController {
 	}
 
 	
-	@RequestMapping(value="/validateUser",method=RequestMethod.POST)
+	/*@RequestMapping(value="/validateUser",method=RequestMethod.POST)
 	public String validateUser(Model model,HttpSession httpSession,@RequestParam("username")String username,@RequestParam("password")String password) {
 		
 		UserDto userDto = loginService.getUserByUsernameAndPassword(username,password);
@@ -50,16 +50,41 @@ public class LoginController {
 		}
 		
 		
+	}*/
+	
+	
+	
+	@RequestMapping(value="/dashboard",method=RequestMethod.GET)
+	public String validateUser(Model model,HttpSession session,Principal principal) {
+		
+		
+		
+		UserDto userDto = loginService.findUserByUsername(principal.getName());
+		
+		List<UserDto> userDtos = loginService.findAllUsers();
+			
+		UserDto formDto = new UserDto();
+		
+		model.addAttribute("formDto", formDto);
+		model.addAttribute("userDtoList", userDtos);
+		
+		session.setAttribute("loginUser", userDto);
+			
+			
+		return "dashboard";
+		
+		
+		
 	}
 	
-	@RequestMapping(value="/logout")
+	/*@RequestMapping(value="/logout")
 	public String logout(HttpSession httpSession) {
 		System.out.println("logout controller");
 		
 		httpSession.invalidate();
 		
 		return "redirect:login?msg= Logout Successful"; 
-	}
+	}*/
 	
 	
 }

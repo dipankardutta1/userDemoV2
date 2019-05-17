@@ -2,12 +2,14 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,10 +52,28 @@ public class User implements Serializable{
 	@Column(name="delete_flag")
 	private String deleteFlag;
 	
+	@OneToMany(mappedBy="user")
+	private List<UserRoleMapping> userRoleMappings;
 	
 	
-	
-	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public List<UserRoleMapping> getUserRoleMappings() {
+		return userRoleMappings;
+	}
+	public void setUserRoleMappings(List<UserRoleMapping> userRoleMappings) {
+		this.userRoleMappings = userRoleMappings;
+	}
 	public String getUserType() {
 		return userType;
 	}

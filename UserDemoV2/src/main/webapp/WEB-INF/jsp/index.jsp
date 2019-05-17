@@ -69,7 +69,7 @@ body {
 </c:if>
  <div class="container">
 
-      <form class="form-signin" action="validateUser" method="post">
+      <form class="form-signin" action="login" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="username" class="sr-only">Email address</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>

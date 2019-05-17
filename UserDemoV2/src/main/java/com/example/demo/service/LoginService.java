@@ -85,6 +85,16 @@ public class LoginService {
 		return userDto;
 		
 	}
+
+	public UserDto findUserByUsername(String username) {
+		User user =  userRepository.findByUsername(username);
+		
+		UserDto userDto = new UserDto();
+		
+		BeanUtils.copyProperties(user, userDto);
+		
+		return userDto;
+	}
 	
 	
 
